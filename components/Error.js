@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Image, NativeModules, TouchableHighlight } from 'react-native';
-import CodePush from 'react-native-code-push';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 export default class Error extends React.Component {
 

@@ -6,12 +6,12 @@ import axios from 'axios'
 import Loading from './components/Loading'
 import Error from './components/Error'
 import { StatusClimate, StatusImageClimate, StatusHumidity } from './components/Status'
+import styles from './components/Style'
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      changeCity: false,
       statusClimate: {},
       instructionsHumidity: [],
       loading: true,
@@ -20,11 +20,23 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.getClima()
+    this.getLocation()
   }
 
-  getClima = () => {
-    axios.get('https://app-climate.herokuapp.com/api/clima')
+  getLocation = () => {
+    let location;
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const latitude = JSON.stringify(position.coords.latitude);
+        const longitude = JSON.stringify(position.coords.longitude);
+        location = { lat: latitude, long: longitude};
+        this.getClima(location);
+      }
+    )
+  }
+
+  getClima = (location) => {
+    axios.get('https://app-climate.herokuapp.com/api/clima', { params: { latitude: location.lat, longitude: location.lon}})
       .then(res => {
         this.setState({ statusClimate: res.data.climate, instructionsHumidity: res.data.instructions, loading: false })
       })
@@ -50,8 +62,7 @@ export default class App extends Component {
           <View style={{flex: 1}}>
             <View style={styles.location}>
               <Image style={styles.iconLocation} source={require('./assets/icons/placeholder.png')} />
-              <Text style={styles.textLocation}>Diadema, SP</Text>
-              <Text style={{ fontSize: 12, color: 'white', marginLeft: 16 }}>Alterar</Text>
+              <Text style={styles.textLocation}>{this.state.statusClimate.city_name}</Text>
             </View>
             <View style={styles.box1}>
               <Image style={styles.icon} source={StatusImageClimate(this.state.statusClimate.condition_slug)} />
@@ -96,105 +107,3 @@ export default class App extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0f2334',
-    justifyContent: 'center',
-  },
-  location: {
-    top: '13%',
-    bottom: '10%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
-    alignItems: 'center'
-  },
-  iconLocation: {
-    width: 25,
-    height: 25
-  },
-  textLocation: {
-    fontSize: 20,
-    color: '#FFF',
-    fontWeight: 'bold',
-    marginLeft: 5
-  },
-  box1: {
-    top: '8%',
-    flex: 1,
-    backgroundColor: "#3e3fbb",
-    borderTopStartRadius: 25,
-    borderTopEndRadius: 25,
-    alignItems: 'center'
-  },
-  title: {
-    fontSize: 14,
-    color: '#fff',
-    fontWeight: "bold"
-  },
-  icon: {
-    marginTop: 10,
-    height: 50,
-    width: 50,
-    marginBottom: 5
-  },
-  infoClimate: {
-    flexDirection: 'row',
-    marginTop: 30,
-    justifyContent: 'space-between',
-    width: '65%',
-  },
-  viewInfo: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  iconCLimate: {
-    width: 45,
-    height: 45,
-    marginBottom: 5
-  },
-  textClimate: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white'
-  },
-  textStatus: {
-    marginTop: 10,
-    fontSize: 13,
-    color: 'white'
-  },
-  content: {
-    flex: 1,
-    width: '100%',
-    marginTop: 20,
-    backgroundColor: '#f3f3f6',
-    alignItems: 'center',
-    borderTopStartRadius: 25,
-    borderTopEndRadius: 25,
-  },
-  titleContent: {
-    marginTop: 10,
-    fontSize: 19,
-    fontWeight: 'bold',
-    color: '#3e3fbb'
-  },
-  popoverImage: {
-    height: '100%',
-    width: '100%'
-  },
-  subtitleContent: {
-    marginTop: 5,
-    fontSize: 14,
-    color: 'black',
-    fontWeight: '300'
-  },
-  imageContent: {
-    height: 80,
-    width: 80,
-    marginTop: 5,
-    marginBottom: 5
-  }
-});
