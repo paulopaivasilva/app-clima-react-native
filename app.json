@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "clima",
+    "name": "Climate",
     "slug": "clima",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,7 +23,9 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "io.progrinter.clima"
+      "package": "io.progrinter.clima",
+      "enableDangerousExperimentalLeanBuilds": true,
+      "versionCode": 1
     }
   }
 }
