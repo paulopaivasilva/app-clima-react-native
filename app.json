@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Climate",
-    "slug": "clima",
+    "name": "Humidity",
+    "slug": "Humidity",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,7 +18,7 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "io.progrinter.clima",
+      "package": "io.progrinter.humidity",
       "userInterfaceStyle": "light",
       "versionCode": 1
     }

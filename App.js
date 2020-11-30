@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image, FlatList } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
 import { Tooltip, Card } from 'react-native-elements';
 import axios from 'axios'
 import Loading from './components/Loading'
@@ -20,6 +21,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    SplashScreen.preventAutoHideAsync();
     this.getLocation()
   }
 
@@ -86,8 +88,8 @@ export default class App extends Component {
                   <Text style={styles.titleContent}>A umidade do ar está {StatusHumidity(this.state.statusClimate.humidity)}!</Text>
                   <View style={{ marginTop: 14, marginLeft: 5, width: 20, height: 20 }}>
                     <Tooltip
-                      popover={<Text style={{ color: 'white', fontSize: 11, lineHeight: 20 }}>Umidade BAIXA: &lt; 40%;{'\n'} Umidade NORMAL: 40% ~ 70%;{'\n'} Umidade ALTA: &gt; 70% {'\n'}
-                    Quanto menor a Umidade no ar, mais riscos para a saúde.</Text>}
+                      popover={<Text style={{ color: 'white', fontSize: 11, lineHeight: 20 }}>Umi. BAIXA: &lt; 40%;{'\n'} Umi. NORMAL: 40% ~ 70%;{'\n'} Umi. ALTA: &gt; 70% {'\n'}
+                      O melhor status da umidade para o nosso corpo é quando ela está NORMAL.</Text>}
                       height={160} overlayColor="none" backgroundColor="#3e3fbb">
                       <Image style={styles.popoverImage} source={require('./assets/icons/info.png')} />
                     </Tooltip>
