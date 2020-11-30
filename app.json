@@ -19,6 +19,7 @@
     },
     "android": {
       "package": "io.progrinter.clima",
+      "userInterfaceStyle": "light",
       "versionCode": 1
     }
   }

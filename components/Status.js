@@ -33,7 +33,7 @@ export const StatusImageClimate = (status) => {
     let image;
     if (status === 'clear_day' || status === 'none_day') image = require('../assets/icons/sun.png');
     if (status === 'cloudly_night' || status === 'none_night') image = require('../assets/icons/night_cloud.png');
-    if (status === 'cloudly_night') image = require('../assets/icons/night_cloud.png');
+    if (status === 'clear_night') image = require('../assets/icons/clear_night.png');
     if (status === 'storm' || status === 'rain' || status === 'hail') image = require('../assets/icons/storm.png');
     if (status === 'cloudly_day' || status === 'fog' || status === 'cloud') image = require('../assets/icons/cloud.png');
     if (status === 'snow') image = require('../assets/icons/snow.png');
@@ -44,6 +44,6 @@ export const StatusHumidity = (status) => {
     let humidity;
     if (status < 40) humidity = 'baixa';
     if (status >= 40 && status <= 70) humidity = 'normal';
-    if (status > 80) humidity = 'alta';
+    if (status > 70) humidity = 'alta';
     return humidity
 }
