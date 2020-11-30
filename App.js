@@ -21,7 +21,6 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    SplashScreen.preventAutoHideAsync();
     this.getLocation()
   }
 
